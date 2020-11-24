@@ -413,12 +413,10 @@ const start = async () => {
   })
 
   //About
-  app.get('/about/update/:id', async (req, res) => {
+  app.patch('/about/update/:id', async (req, res) => {
     try {
       const id = req.params.id
-      const { title, about_text } = req.query
-      console.log(id)
-      console.log(req.query)
+      const { title, about_text } = req.body
       const about = await controller.updateAbout(id, title, about_text)
       res.send(
         {
