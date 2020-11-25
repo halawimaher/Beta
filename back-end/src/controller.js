@@ -23,7 +23,7 @@ const initializeDatabase = async () => {
 
     //Experience
     const getExperienceList = async () => {
-      const rows = await db.all("SELECT id, role, company, start, end FROM Experience")
+      const rows = await db.all("SELECT id, role, company, start, end, image FROM Experience")
       return rows
     }
 
@@ -59,7 +59,7 @@ const initializeDatabase = async () => {
 
     //Experience
     const getExperienceByID = async (id) => {
-      const rows = await db.all(`SELECT id, role, company, start, end FROM experience WHERE id=${id}`)
+      const rows = await db.all(`SELECT id, role, company, start, end, image FROM experience WHERE id=${id}`)
       return rows
     }
 
@@ -94,8 +94,8 @@ const initializeDatabase = async () => {
     }
 
     //Experience
-    const createExperience = async (name, start, end) => {
-      const rows = await db.run(`INSERT INTO Experience (name, start, end, tasks, tech_used) VALUES ("${name}", "${start}", "${end}")`)
+    const createExperience = async (role, company, start, end, image) => {
+      const rows = await db.run(`INSERT INTO Experience (role, company, start, end, image) VALUES ("${role}", "${company}", "${start}", "${end}"), "${image}"`)
       return rows
     }
 
@@ -173,11 +173,12 @@ const initializeDatabase = async () => {
     }
 
     //Experience
-    const updateExperience = async (id, name, start, end) => {
+    const updateExperience = async (id, role, company, start, end, image) => {
       const rows = await db.run(`UPDATE Experience
-      SET name = '${name}', start = ${start}, end = '${end}' WHERE id=${id}`)
+      SET name = '${role}', '${company}', start = ${start}, end = '${end}', '${image}' WHERE id=${id}`)
       return rows
     }
+
 
     //Projects
     const updateProject = async (id, name, github_link, demo_link, description, image) => {
@@ -189,7 +190,6 @@ const initializeDatabase = async () => {
 
     //About
     const updateAbout = async (id, title, about_text) => {
-      console.log(id, title, about_text)
       const rows = await db.run(`UPDATE About
       SET title = '${title}', about_text = '${about_text}' WHERE id=${id}`)
       return rows

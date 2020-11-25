@@ -22,7 +22,6 @@ const start = async () => {
           homeList
         });
     } catch (error) {
-      console.log(error)
       res.status(500).send('Server Error')
     }
   })
@@ -37,7 +36,6 @@ const start = async () => {
           skillList
         });
     } catch (error) {
-      console.log(error)
       res.status(500).send('Server Error')
     }
   })
@@ -52,7 +50,6 @@ const start = async () => {
           expList
         });
     } catch (error) {
-      console.log(error)
       res.status(500).send('Server Error')
     }
   })
@@ -142,7 +139,6 @@ const start = async () => {
           project
         });
     } catch (error) {
-      console.log(error)
       res.status(500).send('Server Error')
     }
   })
@@ -191,7 +187,6 @@ const start = async () => {
           skill
         });
     } catch (error) {
-      console.log(error)
       res.status(500).send('Server Error')
     }
   })
@@ -200,7 +195,6 @@ const start = async () => {
   app.get('/experience/new', async (req, res) => {
     try {
       const { company_name, from_date, to_date, description } = req.query
-      console.log(req.query)
       const experience = await controller.createExperience(company_name, from_date, to_date, description)
       res.send(
         {
@@ -208,7 +202,6 @@ const start = async () => {
           experience
         });
     } catch (error) {
-      console.log(error)
       res.status(500).send('Server Error')
     }
   })
@@ -224,7 +217,6 @@ const start = async () => {
           project
         });
     } catch (error) {
-      console.log(error)
       res.status(500).send('Server Error')
     }
   })
@@ -240,7 +232,6 @@ const start = async () => {
           about
         });
     } catch (error) {
-      console.log(error)
       res.status(500).send('Server Error')
     }
   })
@@ -256,7 +247,6 @@ const start = async () => {
           home
         });
     } catch (error) {
-      console.log(error)
       res.status(500).send('Server Error')
     }
   })
@@ -272,7 +262,6 @@ const start = async () => {
           link
         });
     } catch (error) {
-      console.log(error)
       res.status(500).send('Server Error')
     }
   })
@@ -308,7 +297,6 @@ const start = async () => {
           experience
         });
     } catch (error) {
-      console.log(error)
       res.status(500).send('Server Error')
     }
   })
@@ -391,7 +379,6 @@ const start = async () => {
           experience
         });
     } catch (error) {
-      console.log(error)
       res.status(500).send('Server Error')
     }
   })
@@ -424,7 +411,6 @@ const start = async () => {
           about
         });
     } catch (error) {
-      console.log(error)
       res.status(500).send('Server Error')
     }
   })
@@ -444,83 +430,6 @@ const start = async () => {
       res.status(500).send('Server Error')
     }
   })
-
-
-  /*------------------------------------------------------------------*/
-  /*------------------------------------------------------------------*/
-
-  // //Update
-  // //Skill
-  // app.put('/skills/:id', async (req, res) => {
-  //   try {
-  //     const id = req.params.id
-  //     const skill = await controller.deleteSkill(id)
-  //     res.send(
-  //       {
-  //         success: true,
-  //         skill
-  //       });
-  //   } catch (error) {
-  //     res.status(500).send('Server Error')
-  //   }
-  // })
-  // //Experience
-  // app.put('/experience/:id', async (req, res) => {
-  //   try {
-  //     const id = req.params.id
-  //     const experience = await controller.deleteExperience(id)
-  //     res.send(
-  //       {
-  //         success: true,
-  //         experience
-  //       });
-  //   } catch (error) {
-  //     console.log(error)
-  //     res.status(500).send('Server Error')
-  //   }
-  // })
-  // //Project
-  // app.put('/projects/:id', async (req, res) => {
-  //   try {
-  //     const id = req.params.id
-  //     const project = await controller.deleteProject(id)
-  //     res.send(
-  //       {
-  //         success: true,
-  //         project
-  //       });
-  //   } catch (error) {
-  //     res.status(500).send('Server Error')
-  //   }
-  // })
-  // //About
-  // app.put('/about/:id', async (req, res) => {
-  //   try {
-  //     const id = req.params.id
-  //     const about = await controller.deleteAbout(id)
-  //     res.send(
-  //       {
-  //         success: true,
-  //         about
-  //       });
-  //   } catch (error) {
-  //     res.status(500).send('Server Error')
-  //   }
-  // })
-  // //Contact Link
-  // app.put('/contact_links/:id', async (req, res) => {
-  //   try {
-  //     const id = req.params.id
-  //     const link = await controller.deleteLink(id)
-  //     res.send(
-  //       {
-  //         success: true,
-  //         link
-  //       });
-  //   } catch (error) {
-  //     res.status(500).send('Server Error')
-  //   }
-  // })
 
   app.listen(port, () => console.log('server is listening on port ' + port))
 }
