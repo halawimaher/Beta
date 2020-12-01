@@ -15,6 +15,11 @@ const initializeDatabase = async () => {
       return rows
     }
 
+    const getUsersList = async () => {
+      const rows = await db.all("SELECT id, user, password FROM Users")
+      return rows
+    }
+
     //Skills
     const getSkillsList = async () => {
       const rows = await db.all("SELECT id, label, description, image FROM Skills")
@@ -28,8 +33,13 @@ const initializeDatabase = async () => {
     }
 
     //Projects
-    const getProjetctsList = async () => {
+    const getProjectsList = async () => {
       const rows = await db.all("SELECT id, name, github_link, demo_link, description, image FROM Projects")
+      return rows
+    }
+
+    const getUserByUsername = async (user) => {
+      const rows = await db.get(`SELECT * FROM Users WHERE user='${user}'`)
       return rows
     }
 
@@ -71,7 +81,7 @@ const initializeDatabase = async () => {
 
     //About
     const getAboutByID = async (id) => {
-      const rows = await db.all(`SELECT id, title, title_description FROM about WHERE id=${id}`)
+      const rows = await db.all(`SELECT id, title, about_text FROM about WHERE id=${id}`)
       return rows
     }
 
@@ -114,6 +124,12 @@ const initializeDatabase = async () => {
     //Home
     const createHome = async (title, description) => {
       const rows = await db.run(`INSERT INTO Home (title, description) VALUES ("${title}", "${description}")`)
+      return rows
+    }
+
+    //Users
+    const createUser = async (user, password) => {
+      const rows = await db.run(`INSERT INTO Users (user, password) VALUES ("${user}", "${password}")`)
       return rows
     }
 
@@ -207,7 +223,7 @@ const initializeDatabase = async () => {
       getHomeList,
       getSkillsList,
       getExperienceList,
-      getProjetctsList,
+      getProjectsList,
       getAboutDesc,
       getContactLinks,
       getSkillsByID,
@@ -230,25 +246,14 @@ const initializeDatabase = async () => {
       updateSkill,
       updateExperience,
       updateProject,
-      updateLink
+      updateLink,
+      getUsersList,
+      createUser,
+      getUserByUsername
     }
 
     return controller;
   }
-
-
-
-
-  //Creating Table
-  // await db.run(`CREATE TABLE Home (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, description TEXT NOT NULL)`);
-  // await db.run(`CREATE TABLE About (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL,  about_text TEXT NOT NULL)`);
-  // await db.run(`CREATE TABLE Skills (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, label TEXT NOT NULL, description TEXT NOT NULL)`);
-  // await db.run(`CREATE TABLE Experience (id INTEGER PRIMARY KEY AUTOINCREMENT, company_name TEXT NOT NULL, from_date DATE NOT NULL, to_date DATE NOT NULL, tasks TEXT NOT NULL, tech_used TEXT NOT NULL)`);
-  // await db.run(`CREATE TABLE Experience_Tasks (id INTEGER PRIMARY KEY AUTOINCREMENT, task TEXT NOT NULL)`);
-  // await db.run(`CREATE TABLE Experience_Tech (id INTEGER PRIMARY KEY AUTOINCREMENT, technology TEXT NOT NULL)`);
-  // await db.run(`CREATE TABLE Projects (id INTEGER PRIMARY KEY AUTOINCREMENT, project_name TEXT NOT NULL, project_github_link TEXT NOT NULL, project_demo_link TEXT NOT NULL, project_image FILE, description TEXT NOT NULL)`);
-  // await db.run(`CREATE TABLE Contact_Links (id INTEGER PRIMARY KEY AUTOINCREMENT, facebook_link TEXT NOT NULL, twitter_link TEXT NOT NULL, youtube_link TEXT NOT NULL, email TEXT NOT NULL)`);
-
 
   catch (error) {
     console.log(error)
