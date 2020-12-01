@@ -44,23 +44,25 @@ const start = async () => {
       const existPassword = bcrypt.hashSync(user.password, salt)
       console.log(newPassword)
       console.log(existPassword)
-      const isMatch = await bcrypt.compare(toString(newPassword), toString(existPassword))
+      const isMatch = await bcrypt.compare(existPassword, newPassword)
       console.log(isMatch)
       if (!isMatch) {
         return res
           .status(400)
           .json({ errors: [{ msg: 'Wrong Credentials' }] });
+      } else {
+        const payLoad = {
+          user: {
+            user: user.user
+          }
+        }
+        jwt.sign(payLoad, process.env.ACCESS_TOKEN_SECRET, (err, token) => {
+          if (err) throw err
+          res.json({ token })
+        })
       }
 
-      const payLoad = {
-        user: {
-          id: user.id
-        }
-      }
-      jwt.sign(payLoad, process.env.ACCESS_TOKEN_SECRET, (err, token) => {
-        if (err) throw err
-        res.json({ token })
-      })
+
 
     } catch (error) {
       console.error(error.message)
