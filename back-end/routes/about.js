@@ -1,5 +1,6 @@
 const router = require('express').Router()
 import initializeDatabase from '../src/controller'
+import auth from '../middlewares/auth'
 require('dotenv').config()
 
 const start = async () => {
